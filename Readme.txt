@@ -19,5 +19,20 @@ sudo docker ps
 # login as user
 sudo docker exec -it  9c799613c339 bash
 
+# check listening ports inside the Container
+netstat -an | grep LISTEN
+# OR
+curl localhost:4567
+
 # make some changes in src code & restart to see changes
 sudo docker restart 9c799613c339 
+
+# open in browser below URL
+localhost:4567
+
+* Issues faced *
+
+- networking - curl (56) Recv failure: Connection reset by peer 
+# adding the below line in dictionary.rb file fixed the issue
+# as the port was not reachable from outside the Container
+  set :bind, '0.0.0.0' 
